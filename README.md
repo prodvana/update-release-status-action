@@ -34,10 +34,10 @@ steps:
       release_channel: prod
       pending: true
   # do actual release, then add these at the end
-  - uses: prodvana/update-release-status@v0.1.0
+  - uses: prodvana/update-release-status-action@v0.1.0
     with:
       release_id: ${{ steps.record-release.outputs.release_id }}
-  - uses: prodvana/update-release-status@v0.1.0
+  - uses: prodvana/update-release-status-action@v0.1.0
     if: failure()
     with:
       release_id: ${{ steps.record-release.outputs.release_id }}
