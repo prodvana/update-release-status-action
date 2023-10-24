@@ -1,0 +1,31 @@
+name: "Update release status"
+description: "Update status of an external release to Prodvana."
+inputs:
+  release_id:
+    description: "The release ID returned from record-release action"
+    required: true
+  failed:
+    description: "Mark release as failing."
+    type: boolean
+    defualt: false
+  auth_context:
+    description: "pvnctl auth context to use. If you're using this Action with init-pvnctl, leave as the default"
+    required: true
+    default: "default"
+outputs: {}
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+    - name: pvnctl releases update-status
+      shell: bash
+      run: |
+        set -euxo pipefail
+        pvnctl auth context use ${{ inputs.auth_context }}
+        CMD="pvnctl releases update-status ${{ inputs.release_id }}"
+        if [[ "${{ inputs.failed }}" == "true" ]]; then
+          CMD="$CMD --status=failed"
+        else
+          CMD="$CMD --status=succeeded"
+        fi
+        eval "${CMD}"
