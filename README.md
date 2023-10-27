@@ -23,13 +23,14 @@ This action updates the status of a release on GitHub Actions to Prodvana. This 
 ```yaml
 steps:
   # pvnctl must be installed in your Action environment for configs-apply
-  - uses: prodvana/init-pvnctl-action@v0.1.0 
+  - uses: prodvana/init-pvnctl-action@v0.1.0
     with:
       org: my-org
       api_token: ${{ secrets.YOUR_PRODVANA_API_TOKEN }}
-  - uses: prodvana/record-release-action@v0.1.0
+  - uses: prodvana/record-release-action@v0.1.1
     id: record-release
     with:
+      app: product-name
       service: web
       release_channel: prod
       pending: true
