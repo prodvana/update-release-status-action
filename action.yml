@@ -16,7 +16,6 @@ outputs: {}
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v3
     - name: pvnctl releases update-status
       shell: bash
       run: |
